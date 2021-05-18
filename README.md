@@ -23,7 +23,7 @@ The app provides following functionalities:
 * Android Studio,
 * Google Firebase Realtime Database,
 * Java 8,
-* MPAndroidChart for displaying speed charts mentioned i previous section.
+* [MPAndroidChart](https://github.com/PhilJay/MPAndroidChart) for displaying speed charts mentioned i previous section.
 ## Short overview
 
 ![Application Main Window](SCREENSHOTS/main_app_view.png)
