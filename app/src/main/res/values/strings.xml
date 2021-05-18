@@ -1,0 +1,14 @@
+<resources>
+    <string name="app_name">Running App</string>
+    <string name="greetings">Greetings, user.  Please choose what you wish to do.</string>
+    <string name="new_training">Training</string>
+    <string name="btnmap">Map</string>
+    <string name="title_activity_show_map">Map</string>
+    <string name="insert_training_session_name">Insert training session name</string>
+    <string name="training_session_name">Training session name:</string>
+    <string name="no_steps_so_far">-</string>
+    <string name="coordinates">Coordinates:</string>
+    <string name="clear">Clear</string>
+    <string name="stop">Stop</string>
+    <string name="start">Start</string>
+</resources>
