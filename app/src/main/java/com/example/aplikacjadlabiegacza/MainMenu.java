@@ -33,10 +33,11 @@ public class MainMenu extends AppCompatActivity {
             startActivity(trainingIntent);
         });
         btnTrainingList.setOnClickListener(v -> {
-            Intent showTrainingSessionsIntent = new Intent(getApplicationContext(),ListTrainingSessions.class);
+            Intent showTrainingSessionsIntent = new Intent(getApplicationContext(), ListTrainingSessions.class);
             startActivity(showTrainingSessionsIntent);
         });
     }
+
     private void showAlertDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(MainMenu.this);
         builder.setMessage("Are you sure you want to exit ?");

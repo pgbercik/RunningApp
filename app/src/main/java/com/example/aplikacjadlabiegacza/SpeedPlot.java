@@ -55,15 +55,15 @@ public class SpeedPlot extends AppCompatActivity {
                     ArrayList<String> strings = new ArrayList<>();
                     strings.add(""); //dodajemy jeden opis pusty bo ArrayList numeruje od 0, a wartości w bazie są numerowane od 1
 
-                    int i=0;
+                    int i = 0;
                     for (DataSnapshot ds : dataSnapshot.getChildren()) {
-                        i+=1;
+                        i += 1;
                         double speed = Double.parseDouble(ds.child("speed").getValue().toString());
                         String date = String.valueOf(ds.child("date").getValue());
                         strings.add(date/*.substring(11, 19)*/);
                         barEntries.add(new BarEntry(i, (float) speed));
                     }
-                    BarDataSet barDataSet = new BarDataSet(barEntries,"Speed over time [km/h]");
+                    BarDataSet barDataSet = new BarDataSet(barEntries, "Speed over time [km/h]");
                     barDataSet.setColors(ColorTemplate.COLORFUL_COLORS);
                     barDataSet.setDrawValues(true);
                     barDataSet.setValueTextSize(12f); //rozmiar podpisów wewnątrz słupków widocznych po powiększeniu
@@ -89,8 +89,10 @@ public class SpeedPlot extends AppCompatActivity {
                     xAxis.setLabelRotationAngle(-90);
 
                 }
+
                 @Override
-                public void onCancelled(@NonNull DatabaseError databaseError) { }
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+                }
             });
         }
 

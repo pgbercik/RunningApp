@@ -10,8 +10,9 @@ import android.location.LocationManager;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.provider.Settings;
-import androidx.annotation.Nullable;
 import android.widget.Toast;
+
+import androidx.annotation.Nullable;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -21,7 +22,7 @@ public class GPSService extends Service {
     private LocationListener listener;
     private LocationManager locationManager;
     double distance;
-    private int amountofPositions=0; // licznik ile pozycji gps wykryto, przydatny przy liczeniu odległości między punktami
+    private int amountofPositions = 0; // licznik ile pozycji gps wykryto, przydatny przy liczeniu odległości między punktami
     double latitude1;
     double longitude1;
     double latitude2;
@@ -49,31 +50,30 @@ public class GPSService extends Service {
             @Override
             public void onLocationChanged(Location location) {
 
-                amountofPositions+=1;
+                amountofPositions += 1;
 
                 //convert speed to km/h
-                double speedkmH = Math.round(location.getSpeed() * 3.6 *100)/100.0;
+                double speedkmH = Math.round(location.getSpeed() * 3.6 * 100) / 100.0;
 
 
-                if (amountofPositions<2) {
+                if (amountofPositions < 2) {
                     latitude2 = location.getLatitude();
                     longitude2 = location.getLongitude();
                 }
-                if (amountofPositions>=2) {
+                if (amountofPositions >= 2) {
                     latitude1 = latitude2;
                     longitude1 = longitude2;
                     latitude2 = location.getLatitude();
                     longitude2 = location.getLongitude();
-                    countDistance(latitude1,longitude1,latitude2,longitude2);  //zwraca odległość w globalnej zmiennej distance - globalnej wewnątrz klasy
+                    countDistance(latitude1, longitude1, latitude2, longitude2);  //zwraca odległość w globalnej zmiennej distance - globalnej wewnątrz klasy
                 }
-
 
 
                 Intent i = new Intent("location_update");
                 i.putExtra("longitude", location.getLongitude())
                         .putExtra("latitude", location.getLatitude())
-                        .putExtra("speed",speedkmH)
-                        .putExtra("time",getCurrentDateTime())
+                        .putExtra("speed", speedkmH)
+                        .putExtra("time", getCurrentDateTime())
                         .putExtra("distance", distance);
                 sendBroadcast(i);
 
@@ -106,8 +106,9 @@ public class GPSService extends Service {
         }
 
     }
+
     //odległość między 2 punktami
-    private void countDistance(double latitude1,double longitude1,double latitude2, double longitude2) {
+    private void countDistance(double latitude1, double longitude1, double latitude2, double longitude2) {
         Location l1 = new Location("l1");
         l1.setLatitude(latitude1);
         l1.setLongitude(longitude1);

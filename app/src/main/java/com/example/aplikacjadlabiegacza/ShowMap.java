@@ -1,9 +1,10 @@
 package com.example.aplikacjadlabiegacza;
 
-import androidx.annotation.NonNull;
-import androidx.fragment.app.FragmentActivity;
 import android.os.Bundle;
 import android.util.Log;
+
+import androidx.annotation.NonNull;
+import androidx.fragment.app.FragmentActivity;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -61,8 +62,10 @@ public class ShowMap extends FragmentActivity implements OnMapReadyCallback {
                     }
                     mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(testLocation, 15));
                 }
+
                 @Override
-                public void onCancelled(@NonNull DatabaseError databaseError) { }
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+                }
             });
         }
     }

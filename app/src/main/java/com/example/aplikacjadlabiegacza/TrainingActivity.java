@@ -13,23 +13,18 @@ import android.hardware.SensorManager;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.provider.Settings;
-import androidx.annotation.NonNull;
-import androidx.core.content.ContextCompat;
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
+
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.Locale;
 
 public class TrainingActivity extends AppCompatActivity implements SensorEventListener {
 
@@ -53,7 +48,7 @@ public class TrainingActivity extends AppCompatActivity implements SensorEventLi
     int maxId = 0; //liczba wierszy
     double bodyMass;
     double distance, distanceKm, totalDistanceKm, calories, caloriesTotal;
-    int iteration=0;
+    int iteration = 0;
 
     @Override
     public void onBackPressed() {
@@ -71,32 +66,32 @@ public class TrainingActivity extends AppCompatActivity implements SensorEventLi
                 public void onReceive(Context context, Intent intent) {
 
                     Double latitude = (Double) intent.getExtras().get("latitude");
-                    Double longitude = (Double)  intent.getExtras().get("longitude");
+                    Double longitude = (Double) intent.getExtras().get("longitude");
                     Double speedkmH = (Double) intent.getExtras().get("speed");
 
                     String currentDateandTime = String.valueOf(intent.getExtras().get("time"));
 
                     //pobieranie danych potrzebnych do liczenie ile już trwa trening -> countAndShowTainingTime()
-                    if (iteration==0) {
-                        startTime= currentDateandTime;
-                        stopTime=startTime;
+                    if (iteration == 0) {
+                        startTime = currentDateandTime;
+                        stopTime = startTime;
                     }
-                    iteration+=1;
-                    if (iteration!=0) {
-                        stopTime= currentDateandTime;
+                    iteration += 1;
+                    if (iteration != 0) {
+                        stopTime = currentDateandTime;
                     }
                     //liczymy ile już trwa trening
-                    TrainingTimeCalculation.countAndShowTrainingTime(startTime,stopTime,showTime);
+                    TrainingTimeCalculation.countAndShowTrainingTime(startTime, stopTime, showTime);
 
-                    distanceKm=(double) intent.getExtras().get("distance")/1000;
-                    totalDistanceKm +=distanceKm;
-                    totalDistanceKm = ValueRescaler.rescaleValue(totalDistanceKm,2);
+                    distanceKm = (double) intent.getExtras().get("distance") / 1000;
+                    totalDistanceKm += distanceKm;
+                    totalDistanceKm = ValueRescaler.rescaleValue(totalDistanceKm, 2);
 
-                    calories = bodyMass*distanceKm;
-                    caloriesTotal+= calories;
+                    calories = bodyMass * distanceKm;
+                    caloriesTotal += calories;
                     showDistance.setText(String.valueOf(totalDistanceKm));
 
-                    caloriesTotal = ValueRescaler.rescaleValue(calories,2);
+                    caloriesTotal = ValueRescaler.rescaleValue(calories, 2);
                     showCalories.setText(String.valueOf(caloriesTotal));
                     showSpeed.setText(String.valueOf(speedkmH));
 
@@ -117,11 +112,9 @@ public class TrainingActivity extends AppCompatActivity implements SensorEventLi
                     data.setDistanceKm(distanceKm);
                     data.setBodyMass(bodyMass);
 
-                    maxId+=1;
+                    maxId += 1;
                     reff.child(String.valueOf(maxId)).setValue(data); //wysyłanie do bazy
                 }
-
-
 
 
             };
@@ -178,24 +171,24 @@ public class TrainingActivity extends AppCompatActivity implements SensorEventLi
         btnStart.setOnClickListener(v -> {
             lm = (LocationManager) getApplicationContext().getSystemService(Context.LOCATION_SERVICE);
             boolean isGPSEnabled = lm.isProviderEnabled(LocationManager.GPS_PROVIDER);
-            trainingSessionName=editTrainingName.getText().toString().trim();
+            trainingSessionName = editTrainingName.getText().toString().trim();
 
             String bodyMassString = editBodyMass.getText().toString().trim();
-            if(bodyMassString.matches("")) bodyMass=0.0;
+            if (bodyMassString.matches("")) bodyMass = 0.0;
             else bodyMass = Double.parseDouble(bodyMassString);
 
             if (isGPSEnabled) {
 
-                if (!trainingSessionName.equals("") && bodyMass!=0.0) {
-                    stepsMeasured=0;
+                if (!trainingSessionName.equals("") && bodyMass != 0.0) {
+                    stepsMeasured = 0;
                     disableTrainingEditField();
                     Intent i = new Intent(getApplicationContext(), GPSService.class);
                     startService(i);
 
                     alreadyMeasured = false; //wymuszamy co by step counter zresetował wskazania
                     showSteps = true;
-                }
-                else Toast.makeText(getApplicationContext(),"Insert training session name and body mass",Toast.LENGTH_SHORT).show();
+                } else
+                    Toast.makeText(getApplicationContext(), "Insert training session name and body mass", Toast.LENGTH_SHORT).show();
 
             } else {
                 final Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
@@ -205,7 +198,7 @@ public class TrainingActivity extends AppCompatActivity implements SensorEventLi
         btnStop.setOnClickListener(v -> {
             Intent i = new Intent(getApplicationContext(), GPSService.class);
             stopService(i);
-            maxId=0; //resetowanie auto_increment
+            maxId = 0; //resetowanie auto_increment
             showSteps = false; //wyłączamy pokazywanie kroków
 
             //zeruje zmienne dotyczące przebytego dystansu, spalonych kalorii i prędkości biegu
@@ -220,12 +213,12 @@ public class TrainingActivity extends AppCompatActivity implements SensorEventLi
     }
 
     private void resetVariables() {
-        distanceKm=0;
-        totalDistanceKm=0;
-        calories =0;
-        caloriesTotal=0;
-        speedkmH=0;
-        iteration=0;
+        distanceKm = 0;
+        totalDistanceKm = 0;
+        calories = 0;
+        caloriesTotal = 0;
+        speedkmH = 0;
+        iteration = 0;
     }
 
     private void enableTrainingEditField() {
@@ -278,6 +271,7 @@ public class TrainingActivity extends AppCompatActivity implements SensorEventLi
     public void onAccuracyChanged(Sensor sensor, int accuracy) {
 
     }
+
     private void showAlertDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(TrainingActivity.this);
         builder.setMessage("Are you sure you want to exit? Clicking Yes will end current training session.");
