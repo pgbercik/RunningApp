@@ -2,40 +2,48 @@ package com.example.aplikacjadlabiegacza;
 
 
 public class DataClass {
-    private double Longitude;
-    private double Latitude;
-    private double Speed;
+    private double latitude;
+    private double longitude;
+    private double speed;
     private int steps;
     private String date;
     private double burntCalories;
     private Double distanceKm;
     private Double bodyMass;
 
-    DataClass() {
+    public DataClass(double latitude, double longitude, double speed, int steps, String date, double burntCalories, Double distanceKm, Double bodyMass) {
+        this.longitude = longitude;
+        this.latitude = latitude;
+        this.speed = speed;
+        this.steps = steps;
+        this.date = date;
+        this.burntCalories = burntCalories;
+        this.distanceKm = distanceKm;
+        this.bodyMass = bodyMass;
     }
 
     public double getLongitude() {
-        return Longitude;
+        return longitude;
     }
 
     public void setLongitude(double longitude) {
-        Longitude = longitude;
+        this.longitude = longitude;
     }
 
     public double getLatitude() {
-        return Latitude;
+        return latitude;
     }
 
     public void setLatitude(double latitude) {
-        Latitude = latitude;
+        this.latitude = latitude;
     }
 
     public double getSpeed() {
-        return Speed;
+        return speed;
     }
 
     public void setSpeed(double speed) {
-        Speed = speed;
+        this.speed = speed;
     }
 
     public int getSteps() {
