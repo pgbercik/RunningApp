@@ -28,30 +28,18 @@ public class MainMenu extends AppCompatActivity {
     }
 
     private void enableButtons() {
-        btnNewTraining.setOnClickListener(v -> {
-            Intent trainingIntent = new Intent(getApplicationContext(), TrainingActivity.class);
-            startActivity(trainingIntent);
-        });
-        btnTrainingList.setOnClickListener(v -> {
-            Intent showTrainingSessionsIntent = new Intent(getApplicationContext(), ListTrainingSessions.class);
-            startActivity(showTrainingSessionsIntent);
-        });
+        btnNewTraining.setOnClickListener(v -> startActivity(new Intent(getApplicationContext(), TrainingActivity.class)));
+        btnTrainingList.setOnClickListener(v -> startActivity(new Intent(getApplicationContext(), ListTrainingSessions.class)));
     }
 
     private void showAlertDialog() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(MainMenu.this);
-        builder.setMessage("Are you sure you want to exit ?");
-        builder.setTitle("Attention!");
-        // jeśli będzie true to user klikając poza okienkiem wyłączy je
-        builder.setCancelable(false);
-        builder.setPositiveButton("Yes", (dialog, which) -> {
-            // zamykanie całego activity
-            finish();
-        });
-        builder.setNegativeButton("No", (dialog, which) -> {
-            // wyłączania okienka dialog
-            dialog.cancel();
-        });
+        AlertDialog.Builder builder = new AlertDialog.Builder(MainMenu.this)
+                .setMessage("Are you sure you want to exit ?")
+                .setTitle("Attention!");
+
+        builder.setCancelable(false);  // jeśli będzie true to user klikając poza okienkiem wyłączy je
+        builder.setPositiveButton("Yes", (dialog, which) -> finish()); // zamykanie całego activity
+        builder.setNegativeButton("No", (dialog, which) -> dialog.cancel()); // wyłączania okienka dialog
         // tworzenie okienka
         AlertDialog alertDialog = builder.create();
         // tutaj sprawiamy, że okienko będzie widoczne
