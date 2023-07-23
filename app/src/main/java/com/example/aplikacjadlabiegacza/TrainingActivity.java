@@ -101,16 +101,15 @@ public class TrainingActivity extends AppCompatActivity implements SensorEventLi
                     //dodawanie tabeli( nazwę ustawić w nawiasie)
                     reff = FirebaseDatabase.getInstance().getReference().child(trainingSessionName);
 
-                    DataClass data = new DataClass();
-
-                    data.setLatitude(latitude);
-                    data.setLongitude(longitude);
-                    data.setSpeed(speedkmH);
-                    data.setSteps(stepsMeasured);
-                    data.setDate(currentDateandTime);
-                    data.setBurntCalories(calories);
-                    data.setDistanceKm(distanceKm);
-                    data.setBodyMass(bodyMass);
+                    DataClass data = new DataClass(
+                            latitude,
+                            longitude,
+                            speedkmH,
+                            stepsMeasured,
+                            currentDateandTime,
+                            calories,
+                            distanceKm,
+                            bodyMass);
 
                     maxId += 1;
                     reff.child(String.valueOf(maxId)).setValue(data); //wysyłanie do bazy
