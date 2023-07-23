@@ -80,8 +80,8 @@ public class TrainingActivity extends AppCompatActivity implements SensorEventLi
                     if (iteration != 0) {
                         stopTime = currentDateandTime;
                     }
-                    //liczymy ile już trwa trening
-                    TrainingTimeCalculation.countAndShowTrainingTime(startTime, stopTime, showTime);
+                    //liczymy ile już trwa trening i wyrzucamy to na ekran
+                    showTime.setText(TrainingTimeCalculation.getTrainingTimeToShowOnScreen(startTime, stopTime));
 
                     distanceKm = (double) intent.getExtras().get("distance") / 1000;
                     totalDistanceKm += distanceKm;

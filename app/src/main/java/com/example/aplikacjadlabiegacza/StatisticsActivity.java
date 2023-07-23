@@ -84,7 +84,8 @@ public class StatisticsActivity extends AppCompatActivity {
                             txtStepsTotal.setText(totalSteps);
                         }
                         //liczymy i pokazujemy czas trwania treninigu
-                        TrainingTimeCalculation.countAndShowTrainingTime(startTime, stopTime, txtTrainingDuration);
+                        txtTrainingDuration.setText(TrainingTimeCalculation.getTrainingTimeToShowOnScreen(startTime, stopTime));
+
 
                         //kalorie
                         double calories = Double.parseDouble(ds.child("burntCalories").getValue().toString());
